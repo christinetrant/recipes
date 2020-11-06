@@ -11,12 +11,13 @@ import recipes from '../recipes.json';
 // Import Styles
 import './App.css';
 
-// TIDYUP: Don't show empty json objects!!!
-// FIX: Fixed header
+// FIX: Fixed nav on homepage
 // TODO: category background card not color!
 // TODO: use infinite scroll rather than SCROLL
 // TODO: Images for recipes
 // TIDYUP: Loop through object to create nav buttons {['Breakfast', 'breakfast'], []} etc
+// TIDYUP: Don't show empty json objects!!!
+// TIDYUP: Split css into corresponding files
 
 class App extends Component {
   constructor() {
@@ -25,7 +26,6 @@ class App extends Component {
       recipes: recipes,
       searchBox: '',
       category: 'all'
-      // recipe: {}
     };
   }
 
@@ -39,33 +39,60 @@ class App extends Component {
 
   onFilterChange = category => {
     this.setState({ category });
+    console.log(category);
   };
-
-  // onClickShowRecipe = id => {
-  //   this.setState({ recipe: id });
-  //   console.log(recipe);
-  // };
 
   render() {
     const { recipes, searchBox, category } = this.state;
+    // let num = [];
     const filterRecipes = recipes.filter(recipe => {
+      let filteredValue = '';
       if (recipe.category.toLowerCase() === category.toLowerCase()) {
-        return recipe.title.toLowerCase().includes(searchBox.toLowerCase());
+        filteredValue = recipe.title
+          .toLowerCase()
+          .includes(searchBox.toLowerCase());
+        // console.log(recipe);
+        // num.push(recipe);
+        // console.log('cat:', category, 'recipes', this.state.count, num);
       } else if (category.toLowerCase() === 'all' || '') {
-        return recipe.title.toLowerCase().includes(searchBox.toLowerCase());
+        filteredValue = recipe.title
+          .toLowerCase()
+          .includes(searchBox.toLowerCase());
       }
+      // this.setState({ count: num.length });
+      return filteredValue;
     });
+    console.log(filterRecipes.length);
+    // this.recipeCount(count);
+    // console.log('count', count);
+    // this.state.count = count;
+    // console.log(this.state.count, num.length);
+    // this.setNum(num);
 
     const renderHomepage = () => {
-      return (
-        <>
-          <Nav
-            onSearchChange={this.onSearchChange}
-            onFilterChange={this.onFilterChange}
-          />
-          <CardList recipes={filterRecipes} recipe={this.state.recipe} />
-        </>
-      );
+      if (filterRecipes.length === 0) {
+        return (
+          <>
+            <Nav
+              onSearchChange={this.onSearchChange}
+              onFilterChange={this.onFilterChange}
+            />
+            <div className='App'>
+              <h1>Loading</h1>
+            </div>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <Nav
+              onSearchChange={this.onSearchChange}
+              onFilterChange={this.onFilterChange}
+            />
+            <CardList recipes={filterRecipes} recipe={this.state.recipe} />
+          </>
+        );
+      }
     };
 
     return !recipes.length ? (

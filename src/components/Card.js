@@ -1,21 +1,17 @@
-import React, { Component, Router } from 'react';
+import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Tilt from 'react-tilt';
 import { Link } from 'react-router-dom';
-import CardInfo from './CardInfo';
 
-// const Card = (props) => {
-// const Card = ({ title, category, id }) => {
 class Card extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   // destructuring but we can put below in parameter above instead of props
   // const { name, email, id } = props
 
   render() {
-    // const cardClass = ['card', this.checkCategory()].join(' ')
     const recipe = this.props.recipe;
     const cardClass = 'card';
     return (

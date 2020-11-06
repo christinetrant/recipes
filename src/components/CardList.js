@@ -12,16 +12,7 @@ class CardList extends Component {
     return (
       <div className='card-list'>
         {recipes.map((recipe, i) => {
-          return (
-            <Card
-              key={recipe.id}
-              // id={recipe.id}
-              // title={recipe.title}
-              // category={recipe.category}
-              // tags={recipe.tags}
-              recipe={recipe}
-            />
-          );
+          return <Card key={recipe.id} recipe={recipe} />;
         })}
       </div>
     );
