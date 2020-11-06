@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // Import Components
 import Nav from '../components/Nav';
+import CardList from '../components/CardList';
 import CardInfo from '../components/CardInfo';
 // import SearchBox from '../components/SearchBox';
-import CardList from '../components/CardList';
 // Import Recipes JSON
 import recipes from '../recipes.json';
 // Import Styles
@@ -16,6 +16,7 @@ import './App.css';
 // TODO: category background card not color!
 // TODO: use infinite scroll rather than SCROLL
 // TODO: Images for recipes
+// TIDYUP: Loop through object to create nav buttons {['Breakfast', 'breakfast'], []} etc
 
 class App extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class App extends Component {
       recipes: recipes,
       searchBox: '',
       category: 'all'
+      // recipe: {}
     };
   }
 
@@ -39,6 +41,11 @@ class App extends Component {
     this.setState({ category });
   };
 
+  // onClickShowRecipe = id => {
+  //   this.setState({ recipe: id });
+  //   console.log(recipe);
+  // };
+
   render() {
     const { recipes, searchBox, category } = this.state;
     const filterRecipes = recipes.filter(recipe => {
@@ -49,10 +56,16 @@ class App extends Component {
       }
     });
 
-    const CardList = () => {
-      // return <CardList recipes={filterRecipes} />;
-      // console.log('boo');
-      return <h1>Hlo</h1>;
+    const renderHomepage = () => {
+      return (
+        <>
+          <Nav
+            onSearchChange={this.onSearchChange}
+            onFilterChange={this.onFilterChange}
+          />
+          <CardList recipes={filterRecipes} recipe={this.state.recipe} />
+        </>
+      );
     };
 
     return !recipes.length ? (
@@ -61,29 +74,18 @@ class App extends Component {
       </div>
     ) : (
       <div className='App'>
-        {/* <Switch> */}
-
         <h1 className='header-title'>My Recipes</h1>
-        <Nav
-          onSearchChange={this.onSearchChange}
-          onFilterChange={this.onFilterChange}
-        />
         <Router>
           <Switch>
-            <Route path='/' exact component={CardList} />
-            <Route path='/card/:id' component={CardInfo} />
+            <Route path='/' exact render={() => renderHomepage()} />
+            <Route path='/:id' component={CardInfo} />
           </Switch>
         </Router>
-
         {/* <Scroll> */}
         {/* <ErrorBoundary> */}
         {/* <CardList recipes={filterRecipes} /> */}
-
         {/* </ErrorBoundary> */}
         {/* </Scroll> */}
-        {/* <Route path='/' component={CardInfo} /> */}
-
-        {/* </Switch> */}
       </div>
     );
   }

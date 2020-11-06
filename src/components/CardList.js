@@ -2,31 +2,30 @@ import React, { Component } from 'react';
 import Card from './Card';
 
 class CardList extends Component {
-	constructor(props) {
-		super(props)
-	}
-	
-	// ({recipes}) => {
-		render() {
-			const { recipes } = this.props;
-			return (
-				<div className='card-list'>
-				{
-					recipes.map((user, i) => {
-						return (
-							<Card 
-							key={recipes[i].id} 
-							id={recipes[i].id} 
-							title={recipes[i].title} 
-							category={recipes[i].category} 
-							tags={recipes[i].tags} 
-							/>
-						)
-					})
-				}
-	   	</div>
-		);
-	}
+  constructor(props) {
+    super(props);
+  }
+
+  // ({recipes}) => {
+  render() {
+    const { recipes } = this.props;
+    return (
+      <div className='card-list'>
+        {recipes.map((recipe, i) => {
+          return (
+            <Card
+              key={recipe.id}
+              // id={recipe.id}
+              // title={recipe.title}
+              // category={recipe.category}
+              // tags={recipe.tags}
+              recipe={recipe}
+            />
+          );
+        })}
+      </div>
+    );
+  }
 }
 
 export default CardList;

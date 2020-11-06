@@ -10,7 +10,7 @@
   --pink-color: #ffb3ba;
   --green-color: #baffc9;
   --blue-color: #bae1ff;
-  --background-color: #e2f0cb;
+  --background-color: rgb(233, 233, 233);
   --text-color: #231a13;
   --border-radius: 15px;
 }
@@ -164,6 +164,9 @@ a {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
 }
 
+.card:hover {
+  cursor: pointer;
+}
 .card-content {
   text-align: left;
 }

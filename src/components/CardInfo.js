@@ -1,18 +1,18 @@
 import React, { Component, Route } from 'react';
 
+class CardInfo extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  class CardInfo extends Component {
-    constructor(props) {
-      super(props) 
-    }
-
-  
-	render() {
+  render() {
+    const recipe = this.props.location.state;
     return (
-		<>
-      <p>Test Page</p>
-		</>
-  );
+      <>
+        <p>{recipe.title}</p>
+        {console.log(recipe)}
+      </>
+    );
   }
 }
 

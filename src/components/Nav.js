@@ -29,7 +29,7 @@ class Nav extends Component {
           <div className="nav-item">
             <button
               className='nav-button' 
-              onClick={() => this.onFilterChange('breakfast')}
+              onClick={() => this.props.onFilterChange('breakfast')}
             >
               <FontAwesomeIcon className='nav-icon' icon={faAppleAlt} />
             </button>
@@ -39,7 +39,7 @@ class Nav extends Component {
           <div className="nav-item">
             <button
               className='nav-button' 
-              onClick={() => this.onFilterChange('main')}
+              onClick={() => this.props.onFilterChange('main')}
             >
               <FontAwesomeIcon className='nav-icon' icon={faHamburger} />
             </button>
@@ -49,7 +49,7 @@ class Nav extends Component {
           <div className="nav-item">
             <button
               className='nav-button' 
-              onClick={() => this.onFilterChange('dessert')}
+              onClick={() => this.props.onFilterChange('dessert')}
             >
               <FontAwesomeIcon className='nav-icon' icon={faIceCream} />
             </button>
@@ -59,7 +59,7 @@ class Nav extends Component {
           <div className="nav-item">
             <button
               className='nav-button' 
-              onClick={() => this.onFilterChange('snacks')}
+              onClick={() => this.props.onFilterChange('snacks')}
             >
               <FontAwesomeIcon className='nav-icon' icon={faCookie} />
             </button>
@@ -69,7 +69,7 @@ class Nav extends Component {
           <div className="nav-item">
             <button
               className='nav-button' 
-              onClick={() => this.onFilterChange('drinks')}>
+              onClick={() => this.props.onFilterChange('drinks')}>
               <FontAwesomeIcon className='nav-icon' icon={faGlassMartiniAlt} />
             </button>
             <span>Drinks</span>
