@@ -1,44 +1,123 @@
+// Import Core
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+// Import Components
+import HomeButton from './Buttons/HomeButton';
+// Import Font Awesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faAngleRight,
+  faUtensils,
+  faFire
+} from '@fortawesome/free-solid-svg-icons';
 
 class CardInfo extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
-    const recipe = this.props.location.state;
+    const {
+      recipe_id,
+      recipe_name,
+      recipe_author,
+      recipe_serves,
+      recipe_calories,
+      recipe_url,
+      recipe_tag,
+      recipe_ingredients,
+      recipe_method
+    } = this.props.location.state;
+    // console.log(this.props.location);
+    const tags = recipe_tag.split(';;;');
+    const ingredients = recipe_ingredients.split(';;;');
+    const method = recipe_method.split(';;;');
+    // console.log('test', this.props.location);
+
     return (
       <>
-        <p>{recipe.title}</p>
-        <p>{recipe.author}</p>
-        <p>{recipe.category}</p>
-        <p>{recipe.serves}</p>
-        <p>{recipe.calories}</p>
-        {console.log(recipe)}
+        <HomeButton />
+        <div className='bg'>
+          <div className='card-list'>
+            <div className='card-details'>
+              <h1>Edit</h1>
+              <Link to={{ pathname: '/' }}>
+                <h1 onClick={() => this.props.deleteRecipes(recipe_id)}>
+                  Delete
+                </h1>
+              </Link>
+              <h4 className='card-title'>{recipe_name}</h4>
+              {/* <img
+              className='card-img'
+              alt='recipe'
+              src={`https://robohash.org/${recipe.id}/set_set2/?size=200x200`}
+            /> */}
+              <p className='card-author'>{recipe_author}</p>
 
-        {recipe.ingredients.map(ingredient => {
-          return <p key={ingredient}>{ingredient}</p>;
-        })}
+              {recipe_serves !== null && recipe_calories !== null ? (
+                <ul className='card-cal-serves'>
+                  {recipe_serves !== null ? (
+                    <li className='card-serves'>
+                      <FontAwesomeIcon
+                        className='card-icon'
+                        icon={faUtensils}
+                      />
+                      <span>serves: {recipe_serves}</span>
+                    </li>
+                  ) : (
+                    <li hidden></li>
+                  )}
+                  {recipe_calories !== null ? (
+                    <li className='card-cals'>
+                      <FontAwesomeIcon className='card-icon' icon={faFire} />
+                      <span>calories: {recipe_calories}</span>
+                    </li>
+                  ) : (
+                    <li hidden></li>
+                  )}
+                </ul>
+              ) : (
+                <ul hidden></ul>
+              )}
 
-        {recipe.method.map(step => {
-          return <p key={step}>{step}</p>;
-        })}
+              <ul className='card-tags'>
+                {tags.map(tag => {
+                  const classTags = tag.split(' ').join('');
+                  return (
+                    <li className={classTags} key={tag}>
+                      {tag}
+                    </li>
+                  );
+                })}
+              </ul>
+              <h2 className='card-subtitle'>Ingredients</h2>
+              <ul className='card-ingredients fa-ul'>
+                {ingredients.map(ingredient => {
+                  return (
+                    <li key={ingredient}>
+                      <FontAwesomeIcon
+                        // className='card-icon'
+                        icon={faAngleRight}
+                        listItem
+                      />
+                      <span>{ingredient}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <h2 className='card-subtitle'>Method:</h2>
+              <ol className='card-method'>
+                {method.map(step => {
+                  return <li key={step}>{step}</li>;
+                })}
+              </ol>
 
-        {/* <p>{recipe.tags}</p> */}
-
-        <ul className='card-tags'>
-          {recipe.tags.map(tag => {
-            const classTags = tag.split(' ').join('');
-            return (
-              <li className={classTags} key={tag}>
-                {tag}
-              </li>
-            );
-          })}
-        </ul>
-
-        <p>{recipe.url}</p>
-        {/* image */}
+              {recipe_url !== null ? (
+                <a href={recipe_url} className='card-url'>
+                  View recipe on website
+                </a>
+              ) : (
+                <p hidden></p>
+              )}
+            </div>
+          </div>
+        </div>
       </>
     );
   }

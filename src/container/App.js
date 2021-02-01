@@ -1,37 +1,85 @@
 // Import Core
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Import Components
 import Nav from '../components/Nav';
 import CardList from '../components/CardList';
 import CardInfo from '../components/CardInfo';
-// import SearchBox from '../components/SearchBox';
-// Import Recipes JSON
-import recipes from '../recipes.json';
+import AddRecipe from '../components/AddRecipe';
+import WelcomePage from '../components/WelcomePage';
 // Import Styles
 import './App.css';
 
-// FIX: Fixed nav on homepage
-// TODO: category background card not color!
+// DATABASE:
+// FIX: Add date entered and show in desc order
+
+// CSS:
+//  FIX: Tag Colors in css are specific to a tag e.g. 'christmas', fix to randomise?
+
+// DONE?: IF ING OR METHOD EMPTY STRINGS DON'T INCLUDE
+// TODO: go to recipe after submit?
+// TODO: max three tags
+// TODO: split form into smaller components in Form folder
+// TODO: MAKE CREATE A BIG CARD - LANDSCAPE
+// TODO: UPLOAD IMAGES AND SAVE WITH ID/NAME
+
+// Color scheme - https://www.schemecolor.com/rainbow-pastels-color-scheme.php
+// FIX: Fixed nav on homepage - https://codepen.io/shashankp250/pen/OJVWqbX
+// TODO: responsive nav
 // TODO: use infinite scroll rather than SCROLL
 // TODO: Images for recipes
-// TIDYUP: Loop through object to create nav buttons {['Breakfast', 'breakfast'], []} etc
-// TIDYUP: Don't show empty json objects!!!
+
 // TIDYUP: Split css into corresponding files
+// FIX:  open in new tab?
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      recipes: recipes,
+      recipes: {},
       searchBox: '',
-      category: 'all'
+      category: 'all',
+      recipe: {}
     };
+    // this.deleteRecipes = this.deleteRecipes.bind(this);
   }
 
   // componentDidMount() {
-  //   console.log(recipes);
+  //   fetch('http://localhost:3000')
+  //     .then(response => response.json())
+  //     .then(console.log);
+
+  //   console.log('r', this.state.recipes);
   // }
+
+  componentDidMount() {
+    this.getRecipes();
+  }
+
+  getRecipes = () => {
+    console.log('hi');
+    const API = 'http://localhost:3000';
+    fetch(API)
+      .then(response => response.json())
+      .then(data => {
+        // console.log('db recipes', data);
+        return this.setState({ recipes: data });
+      });
+  };
+
+  // deleteRecipes = recipe => {
+  //   console.log('delete me!', recipe);
+  //   const API = `http://localhost:3000/${recipe}`;
+  //   fetch(API, {
+  //     method: 'DELETE'
+  //   })
+  //     .then(res => res.json()) // or res.json()
+  //     .then(res => console.log(res));
+
+  //   //   // once added reload recipes fetch call
+
+  //   return this.getRecipes();
+  // };
 
   onSearchChange = event => {
     this.setState({ searchBox: event.target.value });
@@ -39,82 +87,113 @@ class App extends Component {
 
   onFilterChange = category => {
     this.setState({ category });
-    console.log(category);
+  };
+
+  // Render Function - Loading Page
+  renderLoading = () => {
+    return (
+      <div className='message-div bg'>
+        <h1 className='message'>Loading</h1>
+      </div>
+    );
+  };
+
+  renderNoCategory = () => {
+    return (
+      <div className='message-div bg'>
+        <h1 className='message'>no recipes in this category!</h1>
+      </div>
+    );
+  };
+
+  renderHeader = () => {
+    return <h1 className='header-title'>My Recipes</h1>;
+  };
+
+  renderNav = () => {
+    return (
+      <Nav
+        onSearchChange={this.onSearchChange}
+        onFilterChange={this.onFilterChange}
+      />
+    );
   };
 
   render() {
     const { recipes, searchBox, category } = this.state;
-    // let num = [];
-    const filterRecipes = recipes.filter(recipe => {
-      let filteredValue = '';
-      if (recipe.category.toLowerCase() === category.toLowerCase()) {
-        filteredValue = recipe.title
+    // if the user has no recipes in database:
+    if (!recipes.length) {
+      return <WelcomePage renderHeader={this.renderHeader} />;
+    } else {
+      // Filter recipes function
+
+      const filterRecipes = recipes.filter(recipe => {
+        // console.log('first recipe', recipe.recipe_category);
+        // console.log('rec', recipe.recipe_tag);
+        let filteredValue = '';
+        let recipeCategory = category.toLowerCase();
+        let recipeTitle = recipe.recipe_name
           .toLowerCase()
           .includes(searchBox.toLowerCase());
-        // console.log(recipe);
-        // num.push(recipe);
-        // console.log('cat:', category, 'recipes', this.state.count, num);
-      } else if (category.toLowerCase() === 'all' || '') {
-        filteredValue = recipe.title
-          .toLowerCase()
-          .includes(searchBox.toLowerCase());
-      }
-      // this.setState({ count: num.length });
-      return filteredValue;
-    });
-    console.log(filterRecipes.length);
-    // this.recipeCount(count);
-    // console.log('count', count);
-    // this.state.count = count;
-    // console.log(this.state.count, num.length);
-    // this.setNum(num);
+        if (recipe.recipe_category.toLowerCase() === recipeCategory) {
+          filteredValue = recipeTitle;
+        } else if (recipeCategory === 'all' || '') {
+          filteredValue = recipeTitle;
+        }
+        return filteredValue;
+      });
 
-    const renderHomepage = () => {
-      if (filterRecipes.length === 0) {
-        return (
-          <>
-            <Nav
-              onSearchChange={this.onSearchChange}
-              onFilterChange={this.onFilterChange}
-            />
-            <div className='App'>
-              <h1>Loading</h1>
-            </div>
-          </>
+      const renderHomepage = () => {
+        return !filterRecipes.length ? (
+          this.renderNoCategory()
+        ) : (
+          <CardList
+            recipes={filterRecipes}
+            deleteRecipes={this.deleteRecipes}
+          />
         );
-      } else {
-        return (
-          <>
-            <Nav
-              onSearchChange={this.onSearchChange}
-              onFilterChange={this.onFilterChange}
-            />
-            <CardList recipes={filterRecipes} recipe={this.state.recipe} />
-          </>
-        );
-      }
-    };
+      };
 
-    return !recipes.length ? (
-      <div className='App'>
-        <h1>Loading</h1>
-      </div>
-    ) : (
-      <div className='App'>
-        <h1 className='header-title'>My Recipes</h1>
-        <Router>
-          <Switch>
-            <Route path='/' exact render={() => renderHomepage()} />
-            <Route path='/:id' component={CardInfo} />
-          </Switch>
-        </Router>
-        {/* <Scroll> */}
-        {/* <ErrorBoundary> */}
-        {/* <CardList recipes={filterRecipes} /> */}
-        {/* </ErrorBoundary> */}
-        {/* </Scroll> */}
-      </div>
-    );
+      return !recipes.length ? (
+        this.renderLoading()
+      ) : (
+        <>
+          {this.renderHeader()}
+          {/* {this.renderNav()}
+          {renderHomepage()} */}
+          <Router>
+            <Switch>
+              <Route
+                path='/'
+                exact
+                render={() => {
+                  return (
+                    <>
+                      {this.renderNav()}
+                      {renderHomepage()}
+                    </>
+                  );
+                }}
+              />
+
+              <Route
+                exact
+                path='/create'
+                render={props => (
+                  <AddRecipe getRecipes={this.getRecipes} {...props} />
+                )}
+              />
+              <Route
+                path='/:id'
+                render={props => (
+                  <CardInfo deleteRecipes={this.deleteRecipes} {...props} />
+                )}
+              />
+            </Switch>
+          </Router>
+        </>
+      );
+    }
   }
 }
 
