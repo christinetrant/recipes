@@ -76,9 +76,12 @@ class AddRecipe extends Component {
       })
     })
       .then(response => response.json())
-      // once added reload recipes fetch call
-      .then(this.props.getRecipes())
-      .then(console.log('state', this.props))
+
+      .then(data => {
+        console.log('db recipes', data);
+        // once added reload recipes fetch call
+        this.props.getRecipes();
+      })
       .then(this.redirectHomePage());
   };
 

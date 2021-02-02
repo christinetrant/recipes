@@ -31,7 +31,16 @@ class WelcomePage extends Component {
                 );
               }}
             />
-            <Route exact path='/create' component={AddRecipe} />
+            {/* <Route exact path='/create' component={AddRecipe} /> */}
+
+            <Route
+              exact
+              path='/create'
+              render={props => (
+                <AddRecipe getRecipes={this.props.getRecipes} {...props} />
+              )}
+            />
+
             <Route path='/:id' component={CardInfo} />
           </Switch>
         </Router>

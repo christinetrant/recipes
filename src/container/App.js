@@ -123,7 +123,12 @@ class App extends Component {
     const { recipes, searchBox, category } = this.state;
     // if the user has no recipes in database:
     if (!recipes.length) {
-      return <WelcomePage renderHeader={this.renderHeader} />;
+      return (
+        <WelcomePage
+          renderHeader={this.renderHeader}
+          getRecipes={this.getRecipes}
+        />
+      );
     } else {
       // Filter recipes function
 
