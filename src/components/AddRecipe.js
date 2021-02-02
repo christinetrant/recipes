@@ -138,7 +138,11 @@ class AddRecipe extends Component {
         <div className='bg'>
           <div className='card-list'>
             <div className='card-details'>
-              <form onSubmit={this.handleSubmit} className='form'>
+              <form
+                onSubmit={this.handleSubmit}
+                className='form'
+                autoComplete='off'
+              >
                 <label>Title:*</label>
                 <input
                   type='text'
