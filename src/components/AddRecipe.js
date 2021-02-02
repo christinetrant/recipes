@@ -25,7 +25,7 @@ class AddRecipe extends Component {
       ingredients: [],
       method: []
     };
-
+    console.log('props', this.props);
     this.onTagsChange = this.onTagsChange.bind(this);
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
     this.onMethodChange = this.onMethodChange.bind(this);
@@ -78,8 +78,13 @@ class AddRecipe extends Component {
       .then(response => response.json())
       // once added reload recipes fetch call
       .then(this.props.getRecipes())
-      // then redirect back to homepage
-      .then(this.props.history.push('/'));
+      .then(console.log('state', this.props))
+      .then(this.redirectHomePage());
+  };
+
+  redirectHomePage = () => {
+    // then redirect back to homepage
+    this.props.history.push('/');
   };
 
   // For adding tags section:
