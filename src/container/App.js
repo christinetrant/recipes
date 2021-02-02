@@ -67,19 +67,19 @@ class App extends Component {
       });
   };
 
-  // deleteRecipes = recipe => {
-  //   console.log('delete me!', recipe);
-  //   const API = `http://localhost:3000/${recipe}`;
-  //   fetch(API, {
-  //     method: 'DELETE'
-  //   })
-  //     .then(res => res.json()) // or res.json()
-  //     .then(res => console.log(res));
+  deleteRecipes = recipe => {
+    console.log('delete me!', recipe);
+    const API = `http://localhost:3000/${recipe}`;
+    fetch(API, {
+      method: 'DELETE'
+    })
+      .then(res => res.json()) // or res.json()
+      .then(res => console.log(res));
 
-  //   //   // once added reload recipes fetch call
+    //   // once added reload recipes fetch call
 
-  //   return this.getRecipes();
-  // };
+    return this.getRecipes();
+  };
 
   onSearchChange = event => {
     this.setState({ searchBox: event.target.value });
