@@ -36,12 +36,17 @@ class CardInfo extends Component {
         <div className='bg'>
           <div className='card-list'>
             <div className='card-details'>
-              <h1>Edit</h1>
-              <Link to={{ pathname: '/' }}>
-                <h1 onClick={() => this.props.deleteRecipes(recipe_id)}>
-                  Delete
-                </h1>
-              </Link>
+              <div className='card-btn-group'>
+                <button className='card-button btn'>Edit</button>
+                <Link to={{ pathname: '/' }}>
+                  <button
+                    className='card-button btn'
+                    onClick={() => this.props.deleteRecipes(recipe_id)}
+                  >
+                    Delete
+                  </button>
+                </Link>
+              </div>
               <h4 className='card-title'>{recipe_name}</h4>
               {/* <img
               className='card-img'

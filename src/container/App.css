@@ -240,6 +240,14 @@ a {
   width: 85%;
 }
 
+.card-btn-group {
+  align-self: flex-end;
+}
+.card-btn-group .card-button {
+  margin-left: 15px;
+  /* font-weight: 700; */
+}
+
 .card-title {
   margin: 10px 0;
   font-size: 2rem;
@@ -542,7 +550,8 @@ a {
   color: var(--text-color);
 }
 
-.add-button {
+.add-button,
+.card-button {
   /* width: 200px; */
   border: 1px solid transparent;
   border-radius: 5px;
@@ -552,7 +561,8 @@ a {
   align-self: center;
   color: whitesmoke;
 }
-.add-button:hover {
+.add-button:hover,
+.card-button:hover {
   color: var(--dark-purple-color);
   border: 1px solid var(--dark-purple-color);
   background-color: var(--purple-color);
