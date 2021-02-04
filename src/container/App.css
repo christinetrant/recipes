@@ -88,12 +88,16 @@ a {
   border: 1px solid var(--text-color);
   opacity: 0.8;
   transition: all 1s;
+  color: pink;
 }
 
 .search-input:focus {
   opacity: 1;
   outline: none;
-  filter: invert(1);
+  color: var(--dark-purple-color);
+  border: 1px solid var(--dark-purple-color);
+  background-color: var(--purple-color);
+  filter: none;
 }
 
 .filter-categories {
@@ -369,36 +373,27 @@ a {
 /** 
 * Tag Colors 
 */
-.breakfast,
-.family {
+.blue {
   background: var(--blue-color);
 }
 
-.lunch,
-.dinner {
+.purple {
   background: var(--purple-color);
 }
 
-.snacks,
-.dessert {
+.green {
   background: var(--green-color);
 }
 
-.drink,
-.smoothie {
+.yellow {
   background: var(--yellow-color);
 }
 
-.curry,
-.stew,
-.pasta,
-.stirfry,
-.christmas {
+.pink {
   background: var(--pink-color);
 }
 
-.sauces,
-.energyballs {
+.orange {
   background: var(--orange-color);
 }
 /* 

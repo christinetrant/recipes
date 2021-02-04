@@ -14,11 +14,12 @@ import './App.css';
 // FIX: Add date entered and show in desc order
 
 // CSS:
-//  FIX: Tag Colors in css are specific to a tag e.g. 'christmas', fix to randomise?
+//  FIX: Tag Colors change to one main function
+// TODO: max three tags, min 1
 
-// DONE?: IF ING OR METHOD EMPTY STRINGS DON'T INCLUDE
-// TODO: go to recipe after submit?
-// TODO: max three tags
+// TODO: Change state to 'all' when new recipe added and return to homepage
+
+// TODO: EDIT FORM
 // TODO: split form into smaller components in Form folder
 // TODO: MAKE CREATE A BIG CARD - LANDSCAPE
 // TODO: UPLOAD IMAGES AND SAVE WITH ID/NAME
@@ -73,11 +74,10 @@ class App extends Component {
     fetch(API, {
       method: 'DELETE'
     })
-      .then(res => res.json()) // or res.json()
+      .then(res => res.json())
       .then(res => console.log(res));
 
-    //   // once added reload recipes fetch call
-
+    // once added reload recipes fetch call
     return this.getRecipes();
   };
 
@@ -87,6 +87,12 @@ class App extends Component {
 
   onFilterChange = category => {
     this.setState({ category });
+  };
+
+  // randomise tag Colors in cards
+  tagColor = () => {
+    const colors = ['purple', 'yellow', 'orange', 'pink', 'green', 'blue'];
+    let tagColor = colors[Math.floor(Math.random() * colors.length)];
   };
 
   // Render Function - Loading Page

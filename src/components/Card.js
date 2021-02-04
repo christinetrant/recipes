@@ -62,9 +62,18 @@ class Card extends Component {
                     </p>
                     <ul className='card-tags'>
                       {tags.map(tag => {
-                        const classTags = tag.split(' ').join('');
+                        const colors = [
+                          'purple',
+                          'yellow',
+                          'orange',
+                          'pink',
+                          'green',
+                          'blue'
+                        ];
+                        let tagColor =
+                          colors[Math.floor(Math.random() * colors.length)];
                         return (
-                          <li className={classTags} key={tag}>
+                          <li className={tagColor} key={tag}>
                             {tag}
                           </li>
                         );

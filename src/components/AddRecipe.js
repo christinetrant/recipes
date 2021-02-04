@@ -58,31 +58,36 @@ class AddRecipe extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log('create props', this.props);
-    // post new recipe into db which will return a response of updated db
-    fetch('http://localhost:3000/create', {
-      method: 'post',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({
-        title: this.state.title,
-        author: this.state.author,
-        serves: this.state.serves,
-        calories: this.state.calories,
-        category: this.state.category,
-        url: this.state.url,
-        //     // "image": "assets/3.jpg",
-        tags: this.state.tags,
-        ingredients: this.state.ingredients,
-        method: this.state.method
+    console.log('tags', this.state);
+    if (this.state.inputTags.length < 4 && this.state.inputTags.length > 0) {
+      // post new recipe into db which will return a response of updated db
+      fetch('http://localhost:3000/create', {
+        method: 'post',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({
+          title: this.state.title,
+          author: this.state.author,
+          serves: this.state.serves,
+          calories: this.state.calories,
+          category: this.state.category,
+          url: this.state.url,
+          //     // "image": "assets/3.jpg",
+          tags: this.state.tags,
+          ingredients: this.state.ingredients,
+          method: this.state.method
+        })
       })
-    })
-      .then(response => response.json())
+        .then(response => response.json())
 
-      .then(data => {
-        console.log('db recipes', data);
-        // once added reload recipes fetch call
-        this.props.getRecipes();
-      })
-      .then(this.redirectHomePage());
+        .then(data => {
+          console.log('db recipes', data);
+          // once added reload recipes fetch call
+          this.props.getRecipes();
+        })
+        .then(this.redirectHomePage());
+    } else {
+      alert('You need to have at least 1 tag and no more than 3!');
+    }
   };
 
   redirectHomePage = () => {
@@ -128,6 +133,8 @@ class AddRecipe extends Component {
     let index = tagsArray.indexOf(item);
     tagsArray.splice(index, 1);
     this.setState({ inputTags: tagsArray });
+    console.log(this.state);
+    return this.state.inputTags;
   };
 
   render() {

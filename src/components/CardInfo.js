@@ -37,7 +37,7 @@ class CardInfo extends Component {
           <div className='card-list'>
             <div className='card-details'>
               <div className='card-btn-group'>
-                <button className='card-button btn'>Edit</button>
+                {/* <button className='card-button btn'>Edit</button> */}
                 <Link to={{ pathname: '/' }}>
                   <button
                     className='card-button btn'
@@ -83,9 +83,19 @@ class CardInfo extends Component {
 
               <ul className='card-tags'>
                 {tags.map(tag => {
-                  const classTags = tag.split(' ').join('');
+                  // const classTags = tag.split(' ').join('');
+                  const colors = [
+                    'purple',
+                    'yellow',
+                    'orange',
+                    'pink',
+                    'green',
+                    'blue'
+                  ];
+                  let tagColor =
+                    colors[Math.floor(Math.random() * colors.length)];
                   return (
-                    <li className={classTags} key={tag}>
+                    <li className={tagColor} key={tag}>
                       {tag}
                     </li>
                   );
