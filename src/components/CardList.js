@@ -17,12 +17,13 @@ class CardList extends Component {
         <div className='card-list'>
           {recipes.map((recipe, i) => {
             return (
-              <Card
-                key={recipe.recipe_id}
-                recipe={recipe}
-                deleteRecipes={this.props.deleteRecipes}
-              />
-            );
+							<Card
+								key={recipe.recipe_id}
+								recipe={recipe}
+								deleteRecipes={this.props.deleteRecipes}
+								editRecipe={this.props.editRecipe}
+							/>
+						);
           })}
         </div>
       </div>

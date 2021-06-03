@@ -8,16 +8,16 @@ class AddRecipeButton extends Component {
   }
   render() {
     return (
-      <div className='nav'>
-        <Link
-          to='/create'
-          className='add-button btn'
-          state={this.props.loadRecipe}
-        >
-          Add New Recipe
-        </Link>
-      </div>
-    );
+			<div className='nav'>
+				<Link
+					to='/create'
+					className='add-button btn'
+					// state={this.props.loadRecipe}
+				>
+					Add New Recipe
+				</Link>
+			</div>
+		);
   }
 }
 

@@ -13,39 +13,46 @@ class WelcomePage extends Component {
 
   render() {
     return (
-      <>
-        {this.props.renderHeader()}
-        <Router>
-          <Switch>
-            <Route
-              path='/'
-              exact
-              render={() => {
-                return (
-                  <>
-                    <AddRecipeButton />
-                    <div className='message-div bg'>
-                      <h1 className='message'>no recipes have been added!</h1>
-                    </div>
-                  </>
-                );
-              }}
-            />
-            {/* <Route exact path='/create' component={AddRecipe} /> */}
+			<>
+				{this.props.renderHeader()}
+				<Router>
+					<Switch>
+						<Route
+							path='/'
+							exact
+							render={() => {
+								return (
+									<>
+										<AddRecipeButton />
+										<div className='message-div bg'>
+											<h1 className='message'>no recipes have been added!</h1>
+										</div>
+									</>
+								);
+							}}
+						/>
+						{/* <Route exact path='/create' component={AddRecipe} /> */}
 
-            <Route
-              exact
-              path='/create'
-              render={props => (
-                <AddRecipe getRecipes={this.props.getRecipes} {...props} />
+						<Route
+							exact
+							path='/create'
+							render={(props) => (
+								<AddRecipe getRecipes={this.props.getRecipes} {...props} />
+							)}
+						/>
+
+						<Route path='/:id' component={CardInfo} />
+
+						{/* <Route 
+              path='/:id/edit' 
+              render={(props) => (
+								<AddRecipe getRecipes={this.props.getRecipes} {...props} /> 
               )}
-            />
-
-            <Route path='/:id' component={CardInfo} />
-          </Switch>
-        </Router>
-      </>
-    );
+            /> */}
+					</Switch>
+				</Router>
+			</>
+		);
   }
 }
 

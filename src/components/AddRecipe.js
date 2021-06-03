@@ -10,21 +10,22 @@ class AddRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // signInEmail: '',
-      // signInPassword: '',
-      inputTags: [],
-      title: '',
-      author: '',
-      serves: null,
-      calories: null,
-      category: '',
-      input: '',
-      tags: [],
-      // "image": "assets/3.jpg",
-      url: null,
-      ingredients: [],
-      method: []
-    };
+			// signInEmail: '',
+			// signInPassword: '',
+			inputTags: [],
+			title: "",
+			author: "",
+			serves: null,
+			calories: null,
+			category: "",
+			input: "",
+			tags: [],
+			// "image": "assets/3.jpg",
+			url: null,
+			ingredients: [],
+			method: [],
+			date: "",
+		};
     console.log('props', this.props);
     this.onTagsChange = this.onTagsChange.bind(this);
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
@@ -61,30 +62,31 @@ class AddRecipe extends Component {
     console.log('tags', this.state);
     if (this.state.inputTags.length < 4 && this.state.inputTags.length > 0) {
       // post new recipe into db which will return a response of updated db
-      fetch('http://localhost:3000/create', {
-        method: 'post',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({
-          title: this.state.title,
-          author: this.state.author,
-          serves: this.state.serves,
-          calories: this.state.calories,
-          category: this.state.category,
-          url: this.state.url,
-          //     // "image": "assets/3.jpg",
-          tags: this.state.tags,
-          ingredients: this.state.ingredients,
-          method: this.state.method
-        })
-      })
-        .then(response => response.json())
+      fetch("http://localhost:3000/create", {
+				method: "post",
+				headers: { "Content-type": "application/json" },
+				body: JSON.stringify({
+					title: this.state.title,
+					author: this.state.author,
+					serves: this.state.serves,
+					calories: this.state.calories,
+					category: this.state.category,
+					url: this.state.url,
+					//     // "image": "assets/3.jpg",
+					tags: this.state.tags,
+					ingredients: this.state.ingredients,
+					method: this.state.method,
+					date: this.state.date,
+				}),
+			})
+				.then((response) => response.json())
 
-        .then(data => {
-          console.log('db recipes', data);
-          // once added reload recipes fetch call
-          this.props.getRecipes();
-        })
-        .then(this.redirectHomePage());
+				.then((data) => {
+					console.log("db recipes", data);
+					// once added reload recipes fetch call
+					this.props.getRecipes();
+				})
+				.then(this.redirectHomePage());
     } else {
       alert('You need to have at least 1 tag and no more than 3!');
     }

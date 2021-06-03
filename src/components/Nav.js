@@ -44,36 +44,36 @@ class Nav extends Component {
 
   renderNav() {
     return (
-      <div className='nav'>
-        <SearchBox searchChange={this.props.onSearchChange} />
-        <nav className='filter-categories'>{this.renderButtons()}</nav>
+			<div className='nav'>
+				<SearchBox searchChange={this.props.onSearchChange} />
+				<nav className='filter-categories'>{this.renderButtons()}</nav>
 
-        <div>
-          {/* <button
+				<div>
+					{/* <button
             className=''
             onClick={() => console.log('Add recipe')}
           ></button> */}
-          {/* <span>Add Recipe</span> */}
+					{/* <span>Add Recipe</span> */}
 
-          {/* <Link
+					{/* <Link
             to='/create'
             className='add-button btn'
             // className='card-link-wrapper'
           >
             Add New Recipe
           </Link> */}
-          <AddRecipeButton />
+					<AddRecipeButton />
 
-          {/* <AddRecipe show={this.state.show} handleClose={this.hideModal}>
+					{/* <AddRecipe show={this.state.show} handleClose={this.hideModal}>
             <p>Modal</p>
             <p>Data</p>
           </AddRecipe>
           <button type='button' onClick={this.showModal}>
             New Recipe
           </button> */}
-        </div>
-      </div>
-    );
+				</div>
+			</div>
+		);
   }
 
   render() {
